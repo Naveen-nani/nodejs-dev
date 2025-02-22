@@ -1,0 +1,22 @@
+{
+  "name": "devtinder",
+  "version": "1.0.0",
+  "description": "tinder for Developers",
+  "main": "index.js",
+  "scripts": {
+    "dev" : "nodemon ./src/app.js",
+    "start" : "node ./src/app.js"  
+  },
+  "keywords": [
+    "nodejs",
+    "javascript",
+    "type",
+    "script",
+    "express"
+  ],
+  "author": "Naveen Gande",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}

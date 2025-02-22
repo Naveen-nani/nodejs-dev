@@ -1,0 +1,4 @@
+to run application we nned to use "npm run dev" for nodemon 
+to run application we nned to use "npm run start" for nodemon 
+
+
