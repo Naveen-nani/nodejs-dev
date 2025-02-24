@@ -3,31 +3,21 @@ const express = require("express");
 let app = new express(); // creatsing Instance
 
 
-// all methods will call here like GET , POST, DELete, update
-// app.use('/user',(req,res) => {
-//     res.send('using user route')
-// })
+app.get('/user',[(req,res,next) => {
+    console.log('first Route handiler');
+    next();
+    // res.send('I am first route handiler');
+},(req,res,next) => {
+    console.log('2 nd route handiler');
+    // res.send('I am 2nd  route handiler')
+    next();
+},(req,res,next) => {
+    console.log('3 nd route handiler');
+    res.send('I am 3nd  route handiler');
+    next();
+}]
+),
 
-app.get('/user/:userId/:name/:password', (req,res)=>{
-    console.log(req.params)
-    res.send({'name':'naveen Gande', 'age':25})
-})
-
-// app.post('/user',(req,res)=>{
-//     res.send('data saved and updated in database')
-// })
-
-// app.delete('/user',(req,res)=>{
-//     res.send('data delated in data base')
-// })
-
-// app.patch('/user',(req,res)=>{
-//     res.send('data updated partially in database')
-// })
-
-//   app.use("/",(req, res)=> {
-//     res.send('hello naveen')
-//   });
   
 
 app.listen('3000', ()=>{
