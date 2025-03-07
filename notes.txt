@@ -1,4 +1,11 @@
 to run application we nned to use "npm run dev" for nodemon 
 to run application we nned to use "npm run start" for nodemon 
 
+5th
+created mutliple route handilers
+next()
+next function and errors along with res.send()
+ app.get('',[(rh1),(rh2),(rh3)]) we can keep all route handilters in array
+ difference between app.use and app.all?
+
 
