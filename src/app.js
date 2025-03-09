@@ -1,28 +1,16 @@
 const express = require("express");
+const connectDB = require('./config/database');
 
 let app = new express(); // creating Instance
 
-let { adminAuth, userAuth } = require('./middleware/auth')
 
-app.get("/admin1", (req, res) => {
-
-
-    try {
-        throw new Error('anckokrmk');
-        res.send('hello admin');
-    } catch (err) {
-        res.status(500).send('please contaict systeam adminter');
-    }
-}
-)
-
-// middile ware that handile error we need to keep this line end of the all functions
-app.use("/", (err, req, res, next) => {
-    if (err) {
-        res.status(500).send('please contact sysyteam admin');
-    }
+// here we need to coonect DB first then we need to start the server.
+connectDB().then(()=> {
+    console.log('Database connect is scussess');
+    app.listen('3000', () => {
+        console.log('server is listening to port number 3000')
+    })
+}).catch((err) => {
+    console.error('Databse cant be established');
 })
 
-app.listen('3000', () => {
-    console.log('server is listening to port number 3000')
-})

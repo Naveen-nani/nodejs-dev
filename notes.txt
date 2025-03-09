@@ -9,3 +9,10 @@ next function and errors along with res.send()
  difference between app.use and app.all?
 
 
+ ep -6
+
+ Create a free cluster  on MangoDB offical website (Mango Atlas)
+ Install mangoose library
+ connect your application to the database "connection-url"/devTinder
+ call the connectDB function  and connect to database  before starting  application 3000
+
