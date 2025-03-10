@@ -11,8 +11,19 @@ next function and errors along with res.send()
 
  ep -6
 
- Create a free cluster  on MangoDB offical website (Mango Atlas)
- Install mangoose library
- connect your application to the database "connection-url"/devTinder
- call the connectDB function  and connect to database  before starting  application 3000
+ Create a free cluster  on MangoDB offical website (Mango Atlas).
+ Install mangoose library.
+ connect your application to the database "connection-url"/devTinder.
+ call the connectDB function  and connect to database  before starting  application 3000.
+ Create user Schema & user model.
+ Create POST documents using API calls from postman 
+ Error handiling  using try and catch
+
+
+ find some issue with node - 3000 already in use
+ solution
+
+ 1. netstat -ano | findstr :2020
+2. taskkill /PID <PID> /F    -- after running above command we will get last PID run this command
+
 
