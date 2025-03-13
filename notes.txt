@@ -27,3 +27,7 @@ next function and errors along with res.send()
 2. taskkill /PID <PID> /F    -- after running above command we will get last PID run this command
 
 
+ep-7
+- what is difference between  JS Object and JSON.
+- Add express.json() middile ware.
+- send data thru postman end user.
