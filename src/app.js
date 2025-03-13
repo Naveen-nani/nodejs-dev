@@ -44,12 +44,12 @@ app.get('/user', async (req, res) => {
 
 })
 
-app.get('/feeds', async (req,res) => {
-    
+app.get('/feeds', async (req, res) => {
+
 
     try {
         const usersData = await User.find({});
-        if(usersData.length === 0) {
+        if (usersData.length === 0) {
             res.status(400).send('user not found');
         } else {
             res.send(usersData);
@@ -62,13 +62,13 @@ app.get('/feeds', async (req,res) => {
 
 // get user By Id
 
-app.get('/userById', async (req,res) => {
+app.get('/userById', async (req, res) => {
     const userId = req.body.id;
 
     try {
         const getUserById = await User.findById(userId);
 
-        if(getUserById.length === 0) {
+        if (getUserById.length === 0) {
             res.status(400).send('user not found');
         } else {
             res.send(getUserById);
@@ -79,7 +79,33 @@ app.get('/userById', async (req,res) => {
     }
 })
 
+//Delete user ById
 
+app.delete('/deleteUser', async (req,res) => {
+    const userId = req.body.id;
+
+    try {
+        const deleteUser = await User.findByIdAndDelete(userId);
+        res.send('user Deleted sucess fully')
+    } catch (err) {
+        res.send(500, 'something went wrong', err.message);
+    }
+})
+
+//update user ById
+
+app.patch('/updateUserData', async (req,res) => {
+    const userId = req.body.id;
+    const updateData = req.body;
+
+    try {
+        const updateUser = await User.findByIdAndUpdate(userId, updateData, {returnDocument: 'after'});
+        console.log('updateUser', updateUser);
+        res.send('user updated sucess fully');
+    } catch (err) {
+        res.send(500, 'something went wrong', err.message)
+    }
+})
 
 // here we need to coonect DB first then we need to start the server.
 connectDB().then(() => {

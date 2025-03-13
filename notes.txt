@@ -35,3 +35,9 @@ ep-7
 - API - Get user by email 
 - API - Feed Api - GET/feed - get all the users from database.
 - API Get user By Id.
+- create a delete user API.
+- Difference between patch and put.
+- API - Update a user.
+- Explore  the Mongoose Document for model methods.
+- What are the options  in a Model.findeOneAndUpdate.
+- API - update user with emailid
