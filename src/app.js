@@ -7,6 +7,7 @@ const app = new express(); // creating Instance
 //middileware to covernvert JSON to js object
 app.use(express.json());
 
+
 app.post('/signup', async (req, res) => {
     // signup with Dynamic data (postman).
     // creating new Instance of the model
@@ -22,8 +23,64 @@ app.post('/signup', async (req, res) => {
         res.send(500, 'data not saved into server', err.message)
         // res.status(500).send(err.message);
     }
+})
+
+//GET API calls
+
+app.get('/user', async (req, res) => {
+    const userEmail = req.body.email;
+
+    try {
+        const user = await User.findOne({ email: userEmail });
+        console.log('user', user);
+        if (user.length === 0) {
+            res.status(400).send('user not found');
+        } else {
+            res.send(user);
+        }
+    } catch (err) {
+        res.send(500, 'something went wrong', err.message)
+    }
 
 })
+
+app.get('/feeds', async (req,res) => {
+    
+
+    try {
+        const usersData = await User.find({});
+        if(usersData.length === 0) {
+            res.status(400).send('user not found');
+        } else {
+            res.send(usersData);
+        }
+
+    } catch (err) {
+        res.send(500, 'something went wrong', err.message)
+    }
+})
+
+// get user By Id
+
+app.get('/userById', async (req,res) => {
+    const userId = req.body.id;
+
+    try {
+        const getUserById = await User.findById(userId);
+
+        if(getUserById.length === 0) {
+            res.status(400).send('user not found');
+        } else {
+            res.send(getUserById);
+        }
+
+    } catch (err) {
+        res.send(500, 'something went wrong', err.message)
+    }
+})
+
+
+
 // here we need to coonect DB first then we need to start the server.
 connectDB().then(() => {
     console.log('Database connect is scussess');

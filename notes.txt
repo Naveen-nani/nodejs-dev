@@ -31,3 +31,7 @@ ep-7
 - what is difference between  JS Object and JSON.
 - Add express.json() middile ware.
 - send data thru postman end user.
+- Users.findOne with duplicate  email ids , which object returned
+- API - Get user by email 
+- API - Feed Api - GET/feed - get all the users from database.
+- API Get user By Id.
