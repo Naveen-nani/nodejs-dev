@@ -2,23 +2,48 @@ const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
     firstName:{
-        type:String
+        type:String,
+        required: true,
+        minLength: 4,
     },
     lastName: {
-        type: String
+        type: String,
     },
     email: {
-        type: String
+        type: String,
+        lowercase: true,
+        required: true,
+        unique: true,
     },
     password: {
-        type: String
+        type: String,
     },
     age: {
-        type: Number
+        type: Number,
+        min: 18,
     },
     gender: {
-        type: String
+        type: String,
+        validate(value){
+            if(!["male","female","others"].includes(value)){
+                throw new Error("Invalid Gender type");
+            }
+        }
+    },
+    photoUrl: {
+        type: String,
+        default: "https://www.pngitem.com/pimgs/m/272-2720656_user-profile-dummy-hd-png-download.png",
+    },
+    about: {
+        type: String,
+        default:"Default message for the user"
+    },
+    skills: {
+        type: [String]
     }
+}, 
+{
+    timestamps: true,
 })
 
 const User = mongoose.model('User', userSchema);

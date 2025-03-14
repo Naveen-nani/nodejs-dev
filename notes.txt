@@ -41,3 +41,11 @@ ep-7
 - Explore  the Mongoose Document for model methods.
 - What are the options  in a Model.findeOneAndUpdate.
 - API - update user with emailid
+
+ep- 8
+- Explore Schema type options  for the documents.
+- add required , unique, lowercase, min, max , minlength, maxlength
+- add default 
+- create custom validate  function for gender.
+- Improve DB schema.
+- Add Time stamples to user schema.

@@ -19,9 +19,8 @@ app.post('/signup', async (req, res) => {
         await user.save();
         res.send('user created scuccessfully in to database');
     } catch (err) {
-        // res.status(500).send('data not saved into server', err.message);
-        res.send(500, 'data not saved into server', err.message)
-        // res.status(500).send(err.message);
+        res.status(500).send('data not saved into server' + err.message);
+
     }
 })
 
@@ -99,11 +98,11 @@ app.patch('/updateUserData', async (req,res) => {
     const updateData = req.body;
 
     try {
-        const updateUser = await User.findByIdAndUpdate(userId, updateData, {returnDocument: 'after'});
+        const updateUser = await User.findByIdAndUpdate(userId, updateData, {returnDocument: 'after', runValidators: true});
         console.log('updateUser', updateUser);
         res.send('user updated sucess fully');
     } catch (err) {
-        res.send(500, 'something went wrong', err.message)
+        res.send(500, 'something went wrong' + err.message)
     }
 })
 
