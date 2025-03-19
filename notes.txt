@@ -49,3 +49,5 @@ ep- 8
 - create custom validate  function for gender.
 - Improve DB schema.
 - Add Time stamples to user schema.
+- Add API Level Validations  On Patch request  &  Signup post API.
+- Data Sanitization - Add  API validation  for each field.
