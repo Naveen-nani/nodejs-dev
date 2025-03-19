@@ -51,3 +51,6 @@ ep- 8
 - Add Time stamples to user schema.
 - Add API Level Validations  On Patch request  &  Signup post API.
 - Data Sanitization - Add  API validation  for each field.
+- install validators (npm i validator).
+- explore Validator libraray.
+- try for Password URL and Email.

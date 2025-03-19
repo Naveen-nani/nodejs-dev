@@ -100,7 +100,7 @@ app.patch('/updateUserData/:userId', async (req,res) => {
 
     try {
         
-    const allowedUpdate = ["age","skills","gender"];
+    const allowedUpdate = ["age","skills","gender","photoUrl"];
 
     const isValidOperation = Object.keys(updateData).every((k) => allowedUpdate.includes(k));
         if(!isValidOperation){
