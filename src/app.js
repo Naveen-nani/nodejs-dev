@@ -1,6 +1,8 @@
 const express = require("express");
 const connectDB = require('./config/database');
-const User = require('./models/user')
+const User = require('./models/user');
+const { signUpDataValidation } = require('./utils/validators');
+const bcrypt = require('bcrypt');
 
 const app = new express(); // creating Instance
 
@@ -9,13 +11,29 @@ app.use(express.json());
 
 
 app.post('/signup', async (req, res) => {
-    // signup with Dynamic data (postman).
-    // creating new Instance of the model
-    const user = new User(req.body);
+
+
 
 
     // to handile errors we need to keep our code into try and catch block && all of the (most of the) mongoose functions are promises so we nned to use async N await.
     try {
+        //validations for signup data
+        signUpDataValidation(req);
+
+        //validations for encript password
+        const { firstName, lastName, email, password } = req.body;
+        const hashPassword = await bcrypt.hash(password, 10);
+        console.log(hashPassword);
+
+        // signup with Dynamic data (postman).
+        // creating new Instance of the model
+        const user = new User({
+            firstName,
+            lastName,
+            email,
+            password: hashPassword
+        });
+
         await user.save();
         res.send('user created scuccessfully in to database');
     } catch (err) {
@@ -80,7 +98,7 @@ app.get('/userById', async (req, res) => {
 
 //Delete user ById
 
-app.delete('/deleteUser', async (req,res) => {
+app.delete('/deleteUser', async (req, res) => {
     const userId = req.body.id;
 
     try {
@@ -93,23 +111,23 @@ app.delete('/deleteUser', async (req,res) => {
 
 //update user ById
 
-app.patch('/updateUserData/:userId', async (req,res) => {
+app.patch('/updateUserData/:userId', async (req, res) => {
     const userId = req.params?.userId;
     const updateData = req.body;
 
 
     try {
-        
-    const allowedUpdate = ["age","skills","gender","photoUrl"];
 
-    const isValidOperation = Object.keys(updateData).every((k) => allowedUpdate.includes(k));
-        if(!isValidOperation){
+        const allowedUpdate = ["age", "skills", "gender", "photoUrl"];
+        const isValidOperation = Object.keys(updateData).every((k) => allowedUpdate.includes(k));
+
+        if (!isValidOperation) {
             throw new Error('Invalid updates');
         }
-        if(updateData.skills.length > 5){
+        if (updateData.skills.length > 5) {
             throw new Error("skills should be less than 5");
         }
-        const updateUser = await User.findByIdAndUpdate(userId, updateData, {returnDocument: 'after', runValidators: true});
+        const updateUser = await User.findByIdAndUpdate(userId, updateData, { returnDocument: 'after', runValidators: true });
         console.log('updateUser', updateUser);
         res.send('user updated sucessfully');
     } catch (err) {

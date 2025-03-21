@@ -54,3 +54,8 @@ ep- 8
 - install validators (npm i validator).
 - explore Validator libraray.
 - try for Password URL and Email.
+
+ep-09
+- Validate Data in Signup API.
+- Install bCryptPacakage (npm i bcrypt)
+- Create PasswaordHash using bcrypt .hash & save the user in   DB encripted password.
