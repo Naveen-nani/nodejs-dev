@@ -3,6 +3,7 @@ const connectDB = require('./config/database');
 const User = require('./models/user');
 const { signUpDataValidation } = require('./utils/validators');
 const bcrypt = require('bcrypt');
+const validator = require('validator');
 
 const app = new express(); // creating Instance
 
@@ -10,10 +11,8 @@ const app = new express(); // creating Instance
 app.use(express.json());
 
 
+
 app.post('/signup', async (req, res) => {
-
-
-
 
     // to handile errors we need to keep our code into try and catch block && all of the (most of the) mongoose functions are promises so we nned to use async N await.
     try {
@@ -42,6 +41,35 @@ app.post('/signup', async (req, res) => {
     }
 })
 
+//logIn API
+app.post('/login', async (req, res) => {
+
+    try {
+        const { email, password } = req.body;
+
+        if(!validator.isEmail(email)){
+            throw new Error('Enter a valid email address');
+        }
+
+        const user = await User.findOne({ email: email });
+
+        if (!user) {
+            throw new Error('Invalide creditials');
+        }
+
+        const isMatchPassword = await bcrypt.compare(password, user.password);
+
+        if (isMatchPassword) {
+            res.send('Loged in Scussessfully');
+        } else {
+            throw new Error('Invalide Creditials');
+        }
+    } catch (err) {
+        res.status(500).send('Error: ' + err.message);
+    }
+
+})
+
 //GET API calls
 
 app.get('/user', async (req, res) => {
@@ -56,7 +84,7 @@ app.get('/user', async (req, res) => {
             res.send(user);
         }
     } catch (err) {
-        res.send(500, 'something went wrong', err.message)
+        res.status(500).send('omething went wrong: ' + err.message);
     }
 
 })

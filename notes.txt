@@ -59,3 +59,5 @@ ep-09
 - Validate Data in Signup API.
 - Install bCryptPacakage (npm i bcrypt)
 - Create PasswaordHash using bcrypt .hash & save the user in   DB encripted password.
+- Create loginAPI, 
+- Compare password and  throw errors  if email or password is Invalid.
