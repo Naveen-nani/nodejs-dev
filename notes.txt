@@ -61,3 +61,11 @@ ep-09
 - Create PasswaordHash using bcrypt .hash & save the user in   DB encripted password.
 - Create loginAPI, 
 - Compare password and  throw errors  if email or password is Invalid.
+
+ep-10
+- install cookie-parse.
+- just send a dummy cookie to the user.
+- create GET /profile API and check if you get cookie back. (install for cookies parser - npm i cookie-parser)
+- install json webtoken (npm i jsonwebtoken)
+- In login API , after email and password validation , create a JWT token and send it to the user in cookies.
+- read the cookies inside your profile API and find the logged in user.

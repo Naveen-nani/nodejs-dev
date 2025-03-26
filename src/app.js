@@ -4,11 +4,14 @@ const User = require('./models/user');
 const { signUpDataValidation } = require('./utils/validators');
 const bcrypt = require('bcrypt');
 const validator = require('validator');
+const cookieParser = require('cookie-parser');
+const jwt = require("jsonwebtoken")
 
 const app = new express(); // creating Instance
 
 //middileware to covernvert JSON to js object
 app.use(express.json());
+app.use(cookieParser()); // after installing npm pakage need to import for cookies ( npm i cookie-parser )
 
 
 
@@ -60,7 +63,14 @@ app.post('/login', async (req, res) => {
         const isMatchPassword = await bcrypt.compare(password, user.password);
 
         if (isMatchPassword) {
-            res.send('Loged in Scussessfully');
+           //create a jwt token
+
+           const token = await jwt.sign({_id:user._id}, "Naveen@5"); // first one is hide data, secound one is secrate data.
+
+              console.log('token', token);
+            res.cookie('token', token);
+            res.send('Loged in Scussessfully')
+
         } else {
             throw new Error('Invalide Creditials');
         }
@@ -68,6 +78,25 @@ app.post('/login', async (req, res) => {
         res.status(500).send('Error: ' + err.message);
     }
 
+})
+
+app.get('/profiles', async (req,res) => {
+
+
+    try{
+        const cookies =  req.cookies;
+        const {token} = cookies;
+        const decodedMessage = await jwt.verify(token, "Naveen@5");
+    
+        console.log('decodedMessage', decodedMessage);
+    
+        const user = await User.findById(decodedMessage._id);
+        res.send(user);
+        
+    } catch(err){
+        res.status(500).send('Error: ' + err.message)
+    }
+   
 })
 
 //GET API calls
