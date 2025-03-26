@@ -5,7 +5,8 @@ const { signUpDataValidation } = require('./utils/validators');
 const bcrypt = require('bcrypt');
 const validator = require('validator');
 const cookieParser = require('cookie-parser');
-const jwt = require("jsonwebtoken")
+const jwt = require("jsonwebtoken");
+const { userAuth } = require("./middleware/auth");
 
 const app = new express(); // creating Instance
 
@@ -77,120 +78,129 @@ app.post('/login', async (req, res) => {
     } catch (err) {
         res.status(500).send('Error: ' + err.message);
     }
-
 })
 
-app.get('/profiles', async (req,res) => {
+app.get('/profiles',userAuth, async (req,res) => {
 
 
     try{
-        const cookies =  req.cookies;
-        const {token} = cookies;
-        const decodedMessage = await jwt.verify(token, "Naveen@5");
-    
-        console.log('decodedMessage', decodedMessage);
-    
-        const user = await User.findById(decodedMessage._id);
+      const user = req.user;
         res.send(user);
-        
+
     } catch(err){
         res.status(500).send('Error: ' + err.message)
     }
    
 })
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //GET API calls
 
-app.get('/user', async (req, res) => {
-    const userEmail = req.body.email;
+// app.get('/user', async (req, res) => {
+//     const userEmail = req.body.email;
 
-    try {
-        const user = await User.findOne({ email: userEmail });
-        console.log('user', user);
-        if (user.length === 0) {
-            res.status(400).send('user not found');
-        } else {
-            res.send(user);
-        }
-    } catch (err) {
-        res.status(500).send('omething went wrong: ' + err.message);
-    }
+//     try {
+//         const user = await User.findOne({ email: userEmail });
+//         console.log('user', user);
+//         if (user.length === 0) {
+//             res.status(400).send('user not found');
+//         } else {
+//             res.send(user);
+//         }
+//     } catch (err) {
+//         res.status(500).send('omething went wrong: ' + err.message);
+//     }
 
-})
+// })
 
-app.get('/feeds', async (req, res) => {
+// app.get('/feeds', async (req, res) => {
 
 
-    try {
-        const usersData = await User.find({});
-        if (usersData.length === 0) {
-            res.status(400).send('user not found');
-        } else {
-            res.send(usersData);
-        }
+//     try {
+//         const usersData = await User.find({});
+//         if (usersData.length === 0) {
+//             res.status(400).send('user not found');
+//         } else {
+//             res.send(usersData);
+//         }
 
-    } catch (err) {
-        res.send(500, 'something went wrong', err.message)
-    }
-})
+//     } catch (err) {
+//         res.send(500, 'something went wrong', err.message)
+//     }
+// })
 
 // get user By Id
 
-app.get('/userById', async (req, res) => {
-    const userId = req.body.id;
+// app.get('/userById', async (req, res) => {
+//     const userId = req.body.id;
 
-    try {
-        const getUserById = await User.findById(userId);
+//     try {
+//         const getUserById = await User.findById(userId);
 
-        if (getUserById.length === 0) {
-            res.status(400).send('user not found');
-        } else {
-            res.send(getUserById);
-        }
+//         if (getUserById.length === 0) {
+//             res.status(400).send('user not found');
+//         } else {
+//             res.send(getUserById);
+//         }
 
-    } catch (err) {
-        res.send(500, 'something went wrong', err.message)
-    }
-})
+//     } catch (err) {
+//         res.send(500, 'something went wrong', err.message)
+//     }
+// })
 
 //Delete user ById
 
-app.delete('/deleteUser', async (req, res) => {
-    const userId = req.body.id;
+// app.delete('/deleteUser', async (req, res) => {
+//     const userId = req.body.id;
 
-    try {
-        const deleteUser = await User.findByIdAndDelete(userId);
-        res.send('user Deleted sucess fully')
-    } catch (err) {
-        res.send(500, 'something went wrong', err.message);
-    }
-})
+//     try {
+//         const deleteUser = await User.findByIdAndDelete(userId);
+//         res.send('user Deleted sucess fully')
+//     } catch (err) {
+//         res.send(500, 'something went wrong', err.message);
+//     }
+// })
 
 //update user ById
 
-app.patch('/updateUserData/:userId', async (req, res) => {
-    const userId = req.params?.userId;
-    const updateData = req.body;
+// app.patch('/updateUserData/:userId', async (req, res) => {
+//     const userId = req.params?.userId;
+//     const updateData = req.body;
 
 
-    try {
+//     try {
 
-        const allowedUpdate = ["age", "skills", "gender", "photoUrl"];
-        const isValidOperation = Object.keys(updateData).every((k) => allowedUpdate.includes(k));
+//         const allowedUpdate = ["age", "skills", "gender", "photoUrl"];
+//         const isValidOperation = Object.keys(updateData).every((k) => allowedUpdate.includes(k));
 
-        if (!isValidOperation) {
-            throw new Error('Invalid updates');
-        }
-        if (updateData.skills.length > 5) {
-            throw new Error("skills should be less than 5");
-        }
-        const updateUser = await User.findByIdAndUpdate(userId, updateData, { returnDocument: 'after', runValidators: true });
-        console.log('updateUser', updateUser);
-        res.send('user updated sucessfully');
-    } catch (err) {
-        res.send(500, 'something went wrong' + err.message);
-    }
-})
+//         if (!isValidOperation) {
+//             throw new Error('Invalid updates');
+//         }
+//         if (updateData.skills.length > 5) {
+//             throw new Error("skills should be less than 5");
+//         }
+//         const updateUser = await User.findByIdAndUpdate(userId, updateData, { returnDocument: 'after', runValidators: true });
+//         console.log('updateUser', updateUser);
+//         res.send('user updated sucessfully');
+//     } catch (err) {
+//         res.send(500, 'something went wrong' + err.message);
+//     }
+// })
 
 // here we need to coonect DB first then we need to start the server.
 connectDB().then(() => {
