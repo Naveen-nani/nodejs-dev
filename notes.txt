@@ -71,3 +71,9 @@ ep-10
 - read the cookies inside your profile API and find the logged in user.
 - Add authatication Dynaic and create Post call send request.
 - work on Exprise of token and cookies.
+- user schema methods for verify password and genarate token.
+- group the multiple routers under the respective router.
+- implement expressRouter.
+- create folder router files auth, profile, request.
+- create auth Router profile router, request router.
+- Import thses routes in app.js.
