@@ -61,14 +61,15 @@ app.post('/login', async (req, res) => {
             throw new Error('Invalide creditials');
         }
 
-        const isMatchPassword = await bcrypt.compare(password, user.password);
+        // const isMatchPassword = await bcrypt.compare(password, user.password);
+        const isMatchPassword = await user.validatePassword(password);
 
         if (isMatchPassword) {
            //create a jwt token
 
-           const token = await jwt.sign({_id:user._id}, "Naveen@5"); // first one is hide data, secound one is secrate data.
+        //  const token = await jwt.sign({_id:user._id}, "Naveen@5", {expiresIn: "7d"}); // first one is hide data, secound one is secrate data.
+            const token = await user.getJWT();   // above line is code refactored;  
 
-              console.log('token', token);
             res.cookie('token', token);
             res.send('Loged in Scussessfully')
 
@@ -80,9 +81,9 @@ app.post('/login', async (req, res) => {
     }
 })
 
+
+//profile API
 app.get('/profiles',userAuth, async (req,res) => {
-
-
     try{
       const user = req.user;
         res.send(user);
@@ -91,6 +92,14 @@ app.get('/profiles',userAuth, async (req,res) => {
         res.status(500).send('Error: ' + err.message)
     }
    
+});
+
+app.post('/sendConnectRequest', userAuth, async(req,res) => {
+    const user = req.user;
+
+    console.log('connect request send');
+
+    res.send('connection request send scussessfully');
 })
 
 

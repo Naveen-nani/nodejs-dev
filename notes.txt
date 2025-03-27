@@ -69,3 +69,5 @@ ep-10
 - install json webtoken (npm i jsonwebtoken)
 - In login API , after email and password validation , create a JWT token and send it to the user in cookies.
 - read the cookies inside your profile API and find the logged in user.
+- Add authatication Dynaic and create Post call send request.
+- work on Exprise of token and cookies.
