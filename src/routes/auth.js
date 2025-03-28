@@ -7,6 +7,7 @@ const User = require("../models/user");
 const validator = require("validator");
 
 
+
 authRouter.post('/signup', async (req, res) => {
 
     // to handile errors we need to keep our code into try and catch block && all of the (most of the) mongoose functions are promises so we nned to use async N await.
@@ -71,5 +72,11 @@ authRouter.post('/login', async (req, res) => {
         res.status(500).send('Error: ' + err.message);
     }
 })
+
+authRouter.post('/logout', async (req,res) => {
+    res.cookie('token', null, {expires: new Date(Date.now())});
+    res.send('Logout scussessfully');
+})
+
 
 module.exports = authRouter;

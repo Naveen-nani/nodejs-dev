@@ -12,4 +12,13 @@ const signUpDataValidation = (req) => {
     }
 }
 
-module.exports = {signUpDataValidation};
+const validateEditProfileData =(req) => {
+    const profileDateToEdit = ['firstName', 'lastName','age', 'gender','photoUrl','about','skills'];
+
+    const IsProfileDataupdated = Object.keys(req.body).every(field => profileDateToEdit.includes(field));
+   
+
+    return IsProfileDataupdated;
+}
+
+module.exports = {signUpDataValidation, validateEditProfileData};

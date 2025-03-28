@@ -77,3 +77,8 @@ ep-10
 - create folder router files auth, profile, request.
 - create auth Router profile router, request router.
 - Import thses routes in app.js.
+- Create Post / Logout API
+- Create PATCH/Profile/edit 
+- Create PATCH/Profile/Password API.
+- Make you validate all data  in every POST, PATCH apis.
+- profiles/edit and prifiles/changepassword work need implemented
