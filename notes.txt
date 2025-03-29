@@ -82,3 +82,14 @@ ep-10
 - Create PATCH/Profile/Password API.
 - Make you validate all data  in every POST, PATCH apis.
 - profiles/edit and prifiles/changepassword work need implemented
+
+ep- 12
+
+- create connection Request Schema.
+- send connection Request API.
+- Proper validations for data.
+- Think about all corner cases.
+- $or query and $and query in mongoose.
+- schema pre function.
+- why do we need indexes in DB.
+- read  this artical about compond indexes.

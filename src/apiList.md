@@ -12,8 +12,10 @@
  - PATCH/profile/password
 
  ## connectionRequestRouter
- - POST/request/send/intrest/:userId
- - POST/request/send/ignored/:userId
+
+  status = intrested, ignored
+ - POST/request/send/:status/:userId
+ - POST/request/send/:ignored/:userId
  - POST/request/review/accepted/:reuestId
  - POST/request/review/rejected/:reuestId
 
