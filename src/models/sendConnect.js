@@ -20,14 +20,13 @@ const sendConnectionSchema = new mongoose.Schema({
 
 },{timestamps: true})
 
-//validation for the self connection Request.
+//validation for the self connection Request corner case handing with Schema.
 
 sendConnectionSchema.pre("save", function(next){
     const test = this;
-    console.log('test', test)
+    
     if(test.fromUserId.equals(test.toUserId)){
         throw new Error("You cannot send connection request to yourself")
-
     }
     next();
 })

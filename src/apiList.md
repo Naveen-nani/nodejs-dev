@@ -16,6 +16,8 @@
   status = intrested, ignored
  - POST/request/send/:status/:userId
  - POST/request/send/:ignored/:userId
+
+ status = accepted, rejected
  - POST/request/review/accepted/:reuestId
  - POST/request/review/rejected/:reuestId
 

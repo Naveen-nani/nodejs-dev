@@ -64,6 +64,8 @@ const userSchema = new mongoose.Schema({
     timestamps: true,
 });
 
+
+//schema methods to reuse the code in multiple places.
 userSchema.methods.getJWT =  async function(){
   const user = this;
   const token = await jwt.sign({_id:user._id}, "Naveen@5", {expiresIn: "7d"});
@@ -74,7 +76,7 @@ userSchema.methods.validatePassword = async function (passwordEnterByUser){
     const user = this;
     const hashPassword = user.password;
     const isPasswordValid = await bcrypt.compare(passwordEnterByUser, hashPassword);
-    
+
     return isPasswordValid;
 }
 
