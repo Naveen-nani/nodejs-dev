@@ -99,3 +99,6 @@ ep -13
 - write code for POST/request/review/status/:reuestId api.
 - create the api /user/requests/received using ref and populate.
 - Implement  the api GET/user/connections.
+
+-logic for feed api,
+- learn $and , $ or , $ne, $in
