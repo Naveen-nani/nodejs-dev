@@ -93,3 +93,9 @@ ep- 12
 - schema pre function.
 - why do we need indexes in DB.
 - read  this artical about compond indexes.
+
+ep -13
+ status = accepted, rejected.
+- write code for POST/request/review/status/:reuestId api.
+- create the api /user/requests/received using ref and populate.
+- Implement  the api GET/user/connections.

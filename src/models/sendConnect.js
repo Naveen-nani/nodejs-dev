@@ -8,6 +8,7 @@ const sendConnectionSchema = new mongoose.Schema({
     },
     toUserId:{
         type:mongoose.Schema.Types.ObjectId,
+        ref: 'User',
         requied: true
     },
     status:{
