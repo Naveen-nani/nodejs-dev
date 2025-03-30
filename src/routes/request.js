@@ -28,7 +28,7 @@ requestRouter.post('/request/send/:status/:toUserId', userAuth, async (req, res)
                 ]
         });
 
-        console.log('existingConnectionResquest123', existingConnectionResquest)
+       
 
         if(existingConnectionResquest){
                return res.status(400).send('connection request already send');
@@ -71,7 +71,6 @@ requestRouter.post('/request/review/:status/:requestId', userAuth, async (req, r
                         _id: requestId,
                         toUserId: loggedInUser._id,
                         status: 'intrested'
-
                 });
 
 

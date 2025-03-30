@@ -22,6 +22,6 @@
  - POST/request/review/rejected/:reuestId
 
  ## userRouter
+ - GET/user/requests/received
  - GET/user/connections
- - GET/user/request
  - GET/user/feed  - Get you the profiles  of other users on platform.
