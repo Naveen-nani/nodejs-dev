@@ -101,4 +101,4 @@ ep -13
 - Implement  the api GET/user/connections.
 
 -logic for feed api,
-- learn $and , $ or , $ne, $in
+- learn $and , $ or , $ne, $in other Query operators.

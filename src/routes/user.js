@@ -55,11 +55,13 @@ userRouter.get('/user/connections', userAuth, async (req,res) => {
 
 
 userRouter.get("/feeds", userAuth,  async (req,res) => {
-   
-
     try {
 
         const loggedInUser = req.user;
+        const page = parseInt(req.query.page) || 0;
+        let limit = parseInt(req.query.limit) || 10;
+        limit > 50 ? 50 :limit;
+        const skip = (page -1)*limit;
 
         //find all the conncetion request sended by user or recived by user.
         const connectionSentOrRecevied = await ConnectionRequest.find({
@@ -83,9 +85,9 @@ userRouter.get("/feeds", userAuth,  async (req,res) => {
             $and: [
                 { _id: { $nin: Array.from(hideUsers) } },
                 { _id:  { $ne: loggedInUser._id }},
-                { skills: {$in: loggedInUser.skills}}
+                // { skills: {$in: loggedInUser.skills}}
             ]
-        })
+        }).select("firstName lastName age photoUrl about skills").skip(skip).limit(limit);
 
        console.log(user)
 
